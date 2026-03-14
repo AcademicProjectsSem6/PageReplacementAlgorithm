@@ -2,32 +2,12 @@
 
 A web app to simulate and compare **FIFO**, **LRU**, **LFU**, and **MFU** page replacement algorithms. Enter a reference string and number of frames to see page faults, hit ratio, and step-by-step frame tables.
 
-## Run locally (as a website)
-
-**Option 1 – Simple HTTP server (recommended)**
-
-```bash
-npm start
-```
-
-Then open **http://localhost:3000** in your browser.
-
-**Option 2 – Open the file directly**
+** Open the file directly**
 
 - Double-click `index.html`, or  
 - Drag `index.html` into your browser.
 
 Some features work best when served over HTTP (e.g. `npm start`).
-
-## Deploy as a website
-
-The project is static (HTML, CSS, JS only). You can host it on:
-
-- **GitHub Pages** – Push to a repo, enable Pages in repo Settings → Pages, select branch (e.g. `main`).
-- **Netlify** – Drag the project folder to [netlify.com/drop](https://app.netlify.com/drop) or connect your Git repo.
-- **Vercel** – Import the repo at [vercel.com](https://vercel.com) and deploy (no build step needed).
-
-Root document is `index.html`; no build or server is required.
 
 ## Usage
 
