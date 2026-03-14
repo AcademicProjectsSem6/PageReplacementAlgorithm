@@ -1,0 +1,9 @@
+{
+  "name": "page-replacement-simulator",
+  "version": "1.0.0",
+  "description": "Page Replacement Algorithm Simulator - FIFO, LRU, LFU, MFU",
+  "scripts": {
+    "start": "npx serve .",
+    "serve": "npx serve ."
+  }
+}
