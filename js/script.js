@@ -51,6 +51,10 @@
                 if (memory.length < frames) {
                     memory.push(page);
                 } else {
+                    while (!memory.includes(recentlyUsed[0])) {
+                        recentlyUsed.shift();
+                    }
+
                     leastRecentlyUsed = recentlyUsed.shift();
                     indexOfLRUFrame = memory.indexOf(leastRecentlyUsed);
                     memory[indexOfLRUFrame] = page;
