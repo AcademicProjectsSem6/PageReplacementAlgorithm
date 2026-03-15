@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    // ——— Algorithm implementations (return steps + stepFaults for each step) ———
+    // Algorithm implementations
 
     function fifoPageReplacement(pages, frames) {
         var memory = [];
@@ -37,46 +37,49 @@
     }
 
     function lruPageReplacement(pages, frames) {
-        var memory = [];
-        var pageFaults = 0;
-        var steps = [];
-        var stepFaults = [];
-        var recentlyUsed = [];
-        var i, page, isFault, leastRecentlyUsed, indexOfLRUFrame;
+    var memory = [];
+    var pageFaults = 0;
+    var steps = [];
+    var stepFaults = [];
+    var lastUsed = {};
+    var i, j, page, isFault, lruPage, oldestTime;
 
-        for (i = 0; i < pages.length; i++) {
-            page = pages[i];
-            isFault = !memory.includes(page);
-            if (isFault) {
-                if (memory.length < frames) {
-                    memory.push(page);
-                } else {
-                    while (!memory.includes(recentlyUsed[0])) {
-                        recentlyUsed.shift();
-                    }
+    for (i = 0; i < pages.length; i++) {
+        page = pages[i];
+        isFault = !memory.includes(page);
 
-                    leastRecentlyUsed = recentlyUsed.shift();
-                    indexOfLRUFrame = memory.indexOf(leastRecentlyUsed);
-                    memory[indexOfLRUFrame] = page;
-                }
-                pageFaults++;
+        if (isFault) {
+            if (memory.length < frames) {
+                memory.push(page);
             } else {
-                recentlyUsed = recentlyUsed.filter(function (p) { return p !== page; });
+                lruPage = memory[0];
+                oldestTime = lastUsed[lruPage];
+
+                for (j = 1; j < memory.length; j++) {
+                    if (lastUsed[memory[j]] < oldestTime) {
+                        lruPage = memory[j];
+                        oldestTime = lastUsed[memory[j]];
+                    }
+                }
+
+                memory[memory.indexOf(lruPage)] = page;
             }
-            recentlyUsed.push(page);
-            steps.push([].concat(memory, Array(frames - memory.length).fill("-")));
-            stepFaults.push(isFault);
+            pageFaults++;
         }
 
-        return {
-            faults: pageFaults,
-            hits: pages.length - pageFaults,
-            ratio: pages.length ? Number(((pages.length - pageFaults) / pages.length).toFixed(2)) : 0,
-            steps: steps,
-            stepFaults: stepFaults
-        };
+        lastUsed[page] = i;
+        steps.push([].concat(memory, Array(frames - memory.length).fill("-")));
+        stepFaults.push(isFault);
     }
 
+    return {
+        faults: pageFaults,
+        hits: pages.length - pageFaults,
+        ratio: pages.length ? Number(((pages.length - pageFaults) / pages.length).toFixed(2)) : 0,
+        steps: steps,
+        stepFaults: stepFaults
+    };
+}
     function lfuPageReplacement(pages, frames) {
         var memory = [];
         var pageFaults = 0;
@@ -179,7 +182,7 @@
             .map(function (x) { return Number(x); });
     }
 
-    // ——— DOM & state ———
+
 
     var currentResults = null;
     var currentPages = [];
@@ -386,7 +389,11 @@
             var pages = parsePages(pagesInput);
             var frames = parseInt(framesInput, 10);
 
-            var invalidPages = pages.length === 0 || pages.some(function (n) { return Number.isNaN(n); });
+            var invalidPages =
+                pages.length === 0 ||
+                pages.some(function (n) {
+                     return Number.isNaN(n) || !Number.isInteger(n) || n < 0;
+          });           
             var invalidFrames = !Number.isInteger(frames) || frames < 1;
 
             if (invalidPages || invalidFrames) throw new Error("Invalid input");
