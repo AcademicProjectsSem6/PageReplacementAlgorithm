@@ -23,8 +23,8 @@
     --accent-amber: #fbbf24;
     --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
     --gradient-2: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
-    --gradient-hero: linear-gradient(180deg, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
-    --glow: 0 0 40px rgba(99, 102, 241, 0.25);
+    --gradient-hero: linear-gradient(180deg, rgba(252, 252, 252, 0.15) 0%, transparent 60%);
+    --glow: 0 0 40px rgba(220, 220, 231, 0.25);
     --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
     --radius: 12px;
     --radius-lg: 16px;
@@ -40,9 +40,9 @@ body {
     min-height: 100vh;
     line-height: 1.6;
     background-image: 
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.2), transparent),
-        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(139, 92, 246, 0.12), transparent),
-        radial-gradient(ellipse 50% 30% at 0% 80%, rgba(14, 165, 233, 0.1), transparent);
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(192, 193, 235, 0.2), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(162, 140, 214, 0.12), transparent),
+        radial-gradient(ellipse 50% 30% at 0% 80%, rgba(66, 114, 136, 0.1), transparent);
 }
 
 /* ——— Header ——— */
